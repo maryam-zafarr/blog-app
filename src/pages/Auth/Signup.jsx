@@ -54,7 +54,7 @@ const Signup = () => {
     <div className={classes.formContainer}>
       <form onSubmit={formik.handleSubmit} className={classes.authForm}>
         <div className={classes.authFormContent}>
-          <h3 className={classes.authFormTitle}>Sign In</h3>
+          <h3 className={classes.authFormTitle}>Sign Up</h3>
           <div className="form-group mt-3">
             <label htmlFor="username">Username</label>
             <input
