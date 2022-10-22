@@ -1,7 +1,7 @@
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logout, selectUser } from "../../store/userSlice";
+import classes from "./Navigation.module.css";
 
 const Navigation = () => {
   const user = useSelector(selectUser);
@@ -12,20 +12,37 @@ const Navigation = () => {
   };
 
   const loggedInNav = (
-    <div>
-      {user && <p>Hello {user.username}</p>}
-      <button onClick={logoutHandler}>Logout</button>
-    </div>
+    <ul>
+      <li>{user && `Hello ${user.username}`}</li>
+      <li>
+        <Link to="/" onClick={logoutHandler} className={classes.navLink}>
+          Logout
+        </Link>
+      </li>
+    </ul>
   );
 
   const loggedOutNav = (
-    <div>
-      <Link to="/login">Login</Link>
-      <Link to="/signup">Register</Link>
-    </div>
+    <ul>
+      <li>
+        <NavLink to="/login" className={classes.navLink}>
+          Login
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/signup" className={classes.navLink}>
+          Register
+        </NavLink>
+      </li>
+    </ul>
   );
 
-  return <div>{user ? loggedInNav : loggedOutNav}</div>;
+  return (
+    <header className={classes.header}>
+      <div className={classes.logo}>V A N I T Y</div>
+      <nav>{user ? loggedInNav : loggedOutNav}</nav>
+    </header>
+  );
 };
 
 export default Navigation;

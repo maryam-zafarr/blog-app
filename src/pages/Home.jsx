@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Navigation from "../components/Layout/Navigation";
 import { auth } from "../firebase";
 import { login } from "../store/userSlice";
 
@@ -22,10 +21,7 @@ const Home = () => {
   }, [dispatch]);
 
   return (
-    <div>
-      <Navigation />
-      {/* {user ? <AuthorizedContent> : <UnauthorizedContent} */}
-    </div>
+    <div>Home {/* {user ? <AuthorizedContent> : <UnauthorizedContent} */}</div>
   );
 };
 
