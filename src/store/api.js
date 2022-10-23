@@ -61,7 +61,7 @@ export async function addComment(postId, commentData) {
 }
 
 // GET all comments
-export async function getAllComments(postId) {
+export async function fetchCommentsByPost(postId) {
   const response = await fetch(`${DOMAIN}/posts/${postId}/comments`);
   const data = response.json();
 
