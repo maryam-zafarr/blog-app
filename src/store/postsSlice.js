@@ -43,7 +43,9 @@ const postsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        state.posts.push(action.payload);
+        const { title, body, userId } = action.payload;
+        let newId = state.posts[state.posts.length - 1].id;
+        state.posts.push({ id: newId + 1, title, body, userId });
       });
   },
 });
