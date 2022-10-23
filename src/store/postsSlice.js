@@ -12,11 +12,11 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     updatePost: (state, action) => {
-      const { id, title, content } = action.payload;
+      const { id, title, body } = action.payload;
       const existingPost = state.posts.find((post) => post.id === Number(id));
       if (existingPost) {
         existingPost.title = title;
-        existingPost.content = content;
+        existingPost.body = body;
       }
     },
     deletePost: (state, action) => {

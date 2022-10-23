@@ -15,6 +15,11 @@ const Navigation = () => {
     <ul>
       <li>{user && `Hello ${user.username}`}</li>
       <li>
+        <Link to="/" className={classes.navLink}>
+          Home
+        </Link>
+      </li>
+      <li>
         <Link to="/" onClick={logoutHandler} className={classes.navLink}>
           Logout
         </Link>
