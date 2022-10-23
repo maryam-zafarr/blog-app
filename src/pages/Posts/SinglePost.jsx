@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
+import CommentForm from "../../components/comments/CommentForm";
+import CommentList from "../../components/comments/CommentList";
 import Card from "../../components/ui/Card";
 import { deletePost } from "../../store/postsSlice";
 import { selectUser } from "../../store/userSlice";
@@ -32,20 +34,24 @@ const SinglePost = () => {
   };
 
   return (
-    <Card>
-      <h2>{post.title}</h2>
-      <p>{post.body}</p>
-      {isAuthorized && (
-        <>
-          <Link to={`/posts/${postId}/edit`} className="btn btn-primary m-2">
-            Edit
-          </Link>
-          <button onClick={deletePostHandler} className="btn btn-danger m-2">
-            Delete
-          </button>
-        </>
-      )}
-    </Card>
+    <div>
+      <Card>
+        <h2>{post.title}</h2>
+        <p>{post.body}</p>
+        {isAuthorized && (
+          <>
+            <Link to={`/posts/${postId}/edit`} className="btn btn-primary m-2">
+              Edit
+            </Link>
+            <button onClick={deletePostHandler} className="btn btn-danger m-2">
+              Delete
+            </button>
+          </>
+        )}
+        <CommentForm />
+      </Card>
+      <CommentList postId={postId} />
+    </div>
   );
 };
 

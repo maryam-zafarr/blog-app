@@ -43,42 +43,47 @@ export const addPost = createAsyncThunk("posts/addPost", async (postData) => {
 });
 
 // POST new comment
-export async function addComment(postId, commentData) {
-  const response = await fetch(`${DOMAIN}/posts/${postId}/comments`, {
-    method: "POST",
-    body: JSON.stringify(commentData),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-  });
-  const data = response.json();
+export const addComment = createAsyncThunk(
+  "comments/addComment",
+  async (commentData) => {
+    const response = await fetch(`${DOMAIN}/comments`, {
+      method: "POST",
+      body: JSON.stringify(commentData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(data.message || "Could not add comment.");
+    if (!response.ok) {
+      throw new Error(data.message || "Could not create post.");
+    }
+
+    return data;
   }
-
-  return { commentId: data.name };
-}
+);
 
 // GET all comments
-export async function fetchCommentsByPost(postId) {
-  const response = await fetch(`${DOMAIN}/posts/${postId}/comments`);
-  const data = response.json();
+export const fetchCommentsByPost = createAsyncThunk(
+  "comments/getComments",
+  async (postId) => {
+    const response = await fetch(`${DOMAIN}/posts/${postId}/comments`);
+    const data = await response.json();
 
-  if (!response.ok) {
-    throw new Error(data.message || "Could not fetch comments.");
+    if (!response.ok) {
+      throw new Error(data.message || "Could not fetch posts.");
+    }
+
+    const comments = [];
+
+    for (const key in data) {
+      const comment = {
+        id: key,
+        ...data[key],
+      };
+      comments.push(comment);
+    }
+
+    return comments;
   }
-
-  const comments = [];
-
-  for (const key in data) {
-    const comment = {
-      id: key,
-      ...data[key],
-    };
-
-    comments.push(comment);
-  }
-
-  return comments;
-}
+);

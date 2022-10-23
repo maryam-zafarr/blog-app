@@ -1,0 +1,16 @@
+.metaContainer {
+  color: #666;
+  font-size: 14px;
+  margin-top: 7px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+}

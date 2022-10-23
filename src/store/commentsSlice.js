@@ -1,6 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { addComment, fetchCommentsByPost } from "./api";
-
-const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   comments: [],
@@ -12,10 +11,29 @@ const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
-    updateCommnent: () => {},
-    deleteComment: () => {},
+    updateComment: (state, action) => {
+      const { id, body } = action.payload;
+      const existingComment = state.comments.find(
+        (comment) => String(comment.id) === String(id)
+      );
+      if (existingComment) {
+        existingComment.body = body;
+      }
+    },
+    deleteComment: (state, action) => {
+      const id = action.payload;
+      const existingComment = state.comments.find(
+        (comment) => String(comment.id) === String(id)
+      );
+
+      if (existingComment) {
+        state.comments = state.comments.filter(function (existingComment) {
+          return String(existingComment.id) !== id;
+        });
+      }
+    },
   },
-  extraReducers: (builder) => {
+  extraReducers(builder) {
     builder
       .addCase(fetchCommentsByPost.pending, (state, action) => {
         state.status = "loading";
@@ -29,9 +47,13 @@ const commentsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(addComment.fulfilled, (state, action) => {
-        state.comments.push(action.payload);
+        const { body, commentId, email, postId, userId } = action.payload;
+        let newId = commentId;
+        state.comments.push({ id: newId, body, userId, email, postId });
       });
   },
 });
+
+export const { updateComment, deleteComment } = commentsSlice.actions;
 
 export default commentsSlice.reducer;
