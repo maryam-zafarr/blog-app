@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import NewPost from "./pages/Posts/NewPost";
 import EditPost from "./pages/Posts/EditPost";
 import SinglePost from "./pages/Posts/SinglePost";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
@@ -23,15 +24,15 @@ const App = () => {
         <Route path="/signup">
           <Signup />
         </Route>
-        <Route path="/new-post">
+        <PrivateRoute path="/new-post">
           <NewPost />
-        </Route>
-        <Route path="/posts/:postId" exact>
+        </PrivateRoute>
+        <PrivateRoute path="/posts/:postId" exact>
           <SinglePost />
-        </Route>
-        <Route path="/posts/:postId/edit">
+        </PrivateRoute>
+        <PrivateRoute path="/posts/:postId/edit">
           <EditPost />
-        </Route>
+        </PrivateRoute>
         <Route path="*">
           <Redirect to="/" />
         </Route>

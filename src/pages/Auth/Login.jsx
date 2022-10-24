@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 
 import { auth } from "../../firebase";
 import classes from "./Auth.module.css";
@@ -22,7 +22,9 @@ const validate = (values) => {
 
 const Login = () => {
   const [error, setError] = useState(null);
+  const [redirect, setRedirect] = useState(false);
   const history = useHistory();
+  const { state } = useLocation();
 
   const formik = useFormik({
     initialValues: {
@@ -32,6 +34,7 @@ const Login = () => {
     validate,
     onSubmit: async (values) => {
       try {
+        setRedirect(true);
         await signInWithEmailAndPassword(auth, values.email, values.password);
         history.replace("/");
       } catch (error) {
@@ -39,6 +42,11 @@ const Login = () => {
       }
     },
   });
+
+  if (redirect) {
+    return <Redirect to={state?.from} />;
+  }
+
   return (
     <div className={classes.formContainer}>
       <form onSubmit={formik.handleSubmit} className={classes.authForm}>
