@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "../../store/api";
+import LoadingSpinner from "../ui/LoadingSpinner";
 import PostItem from "./PostItem";
 
 const PostList = (props) => {
@@ -16,6 +17,14 @@ const PostList = (props) => {
       dispatch(getAllPosts());
     }
   }, [postStatus, dispatch]);
+
+  if (postStatus === "loading") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div>

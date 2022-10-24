@@ -1,14 +1,16 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { logout, selectUser } from "../../store/userSlice";
 import classes from "./Navigation.module.css";
 
 const Navigation = () => {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const logoutHandler = () => {
     dispatch(logout());
+    history.push("/");
   };
 
   const loggedInNav = (
@@ -20,7 +22,7 @@ const Navigation = () => {
         </Link>
       </li>
       <li>
-        <Link to="/" onClick={logoutHandler} className={classes.navLink}>
+        <Link to="" onClick={logoutHandler} className={classes.navLink}>
           Logout
         </Link>
       </li>

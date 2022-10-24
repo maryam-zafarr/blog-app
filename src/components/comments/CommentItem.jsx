@@ -15,7 +15,7 @@ const CommentItem = (props) => {
   const history = useHistory();
 
   let isAuthorized = false;
-  if (currentUser.userId === String(props.userId)) {
+  if (currentUser && currentUser.userId === String(props.userId)) {
     isAuthorized = true;
   }
 

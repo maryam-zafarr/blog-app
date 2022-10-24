@@ -29,8 +29,8 @@ const CommentForm = (props) => {
     initialValues: {
       commentId: small_id,
       body: "",
-      userId: user.userId,
-      email: user.email,
+      userId: user && user.userId,
+      email: user && user.email,
       postId: Number(postId),
     },
     validate,

@@ -21,23 +21,21 @@ const SinglePost = () => {
 
   let isAuthorized = false;
 
-  if (currentUser.userId === String(post.userId)) {
+  if (currentUser && currentUser.userId === String(post.userId)) {
     isAuthorized = true;
   }
 
   const deletePostHandler = (e) => {
     e.preventDefault();
-
     dispatch(deletePost({ id: postId }));
-
     history.push("/posts");
   };
 
   return (
     <div>
       <Card>
-        <h2>{post.title}</h2>
-        <p>{post.body}</p>
+        <h2>{post && post.title}</h2>
+        <p>{post && post.body}</p>
         {isAuthorized && (
           <>
             <Link to={`/posts/${postId}/edit`} className="btn btn-primary m-2">
